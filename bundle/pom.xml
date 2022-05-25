@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>io.github.bmarwell.liberty.cowsay</groupId>
+    <artifactId>cowsay-root</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>cowsay-bundle</artifactId>
+  <packaging>bundle</packaging>
+  <name>Cowsay :: Bundle</name>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.github.ricksbrown</groupId>
+      <artifactId>cowsay</artifactId>
+      <version>1.1.0</version>
+      <classifier>lib</classifier>
+    </dependency>
+
+    <dependency>
+      <groupId>org.osgi</groupId>
+      <artifactId>osgi.core</artifactId>
+      <version>7.0.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.osgi</groupId>
+      <artifactId>org.osgi.service.cm</artifactId>
+      <version>1.6.1</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.ibm.websphere.appserver.spi</groupId>
+      <artifactId>com.ibm.websphere.appserver.spi.logging</artifactId>
+      <version>1.1.21</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <instructions>
+            <Import-Package>
+              org.osgi.framework,
+              org.osgi.service.cm
+            </Import-Package>
+            <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
+            <Export-Package>io.github.bmarwell.liberty.cowsay</Export-Package>
+            <Private-Package>io.github.bmarwell.liberty.cowsay.*</Private-Package>
+            <Bundle-Activator>io.github.bmarwell.liberty.cowsay.Activator</Bundle-Activator>
+            <!--
+              <Bundle-Version> is assumed to be "${pom.version}",
+              but is normalized to the OSGi version format of "MAJOR.MINOR.MICRO.QUALIFIER".
+              For example "2.1-SNAPSHOT" would become "2.1.0.SNAPSHOT".
+              https://felix.apache.org/documentation/subprojects/apache-felix-maven-bundle-plugin-bnd.html
+            -->
+            <Bundle-RequiredExecutionEnvironment>JavaSE-1.8</Bundle-RequiredExecutionEnvironment>
+            <Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metatype:MetaData xmlns:metatype="http://www.osgi.org/xmlns/metatype/v1.1.0"
+  xmlns:ibm="http://www.ibm.com/xmlns/appservers/osgi/metatype/v1.0.0"
+  localization="OSGI-INF/I10n/metatype">
+
+  <OCD id="cowsay-id"
+    name="%cowsay.name"
+    description="%cowsay.desc"
+    ibm:alias="cowsay">
+
+    <AD id="startmessage"
+      name="%startmessage.name"
+      description="%startmessage.desc"
+      type="String"
+    />
+
+    <AD id="startcowfile"
+      name="%startcowfile.name"
+      description="%startcowfile.desc"
+      type="String"
+      default="cow"
+    />
+
+  </OCD>
+
+  <Designate pid="cowsay">
+    <Object ocdref="cowsay-id"/>
+  </Designate>
+
+</metatype:MetaData>

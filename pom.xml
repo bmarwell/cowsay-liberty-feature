@@ -1,112 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ Copyright (c) Finanz Informatik GmbH & Co. KG, 2020.
-  ~
-  ~ Alle Daten sind urheberrechtlich geschützt. Es sind Erzeugnisse der
-  ~ Finanz Informatik GmbH & Co. KG, Deutschland. Jede unberechtigte Nutzung
-  ~ wird geahndet. Eine Berechtigung zur Nutzung kann nur durch die
-  ~ Finanz Informatik GmbH & Co. KG in Schriftform erfolgen. Sofern diese Daten
-  ~ ohne schriftliche Übertragung spezifizierter Nutzungsrechte bereitgestellt werden,
-  ~ dienen sie lediglich der Information.
-  ~
-  ~ Sie sind verpflichtet, Urheberrechtshinweise nicht zu entfernen und solche Hinweise
-  ~ originalgetreu auf alle von Ihnen rechtmäßig angelegten Kopien beziehungsweise
-  ~ Datenträger zu übertragen.
-  -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>de.fi.was.datasourcevalidator</groupId>
-  <artifactId>datasourcevalidator</artifactId>
-  <version>2.1-SNAPSHOT</version>
+  <groupId>io.github.bmarwell.liberty.cowsay</groupId>
+  <artifactId>cowsay-root</artifactId>
+  <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>DataSourceValidator</name>
+  <name>Liberty Cowsay Feature</name>
 
   <modules>
-    <module>DataSourceValidatorBundle</module>
-    <module>DataSourceValidatorFeature</module>
+    <module>bundle</module>
+    <module>feature</module>
   </modules>
 
   <scm>
-    <connection>scm:git:https://github-abnahme.intern/webappsrv/datasource-validator.git</connection>
-    <developerConnection>scm:git:git@github-abnahme.intern:webappsrv/datasource-validator.git</developerConnection>
-    <url>https://github-abnahme.intern/webappsrv/datasource-validator</url>
+    <connection>scm:git:https://github.com/bmarwell/cowsay-liberty-feature.git</connection>
+    <developerConnection>scm:git:git@github.com:bmarwell/cowsay-liberty-feature.git</developerConnection>
+    <url>https://github.com/bmarwell/cowsay-liberty-feature</url>
   </scm>
 
   <licenses>
     <license>
-      <name>All rights reserved</name>
-      <comments>Not for distribution</comments>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
     </license>
   </licenses>
-  <organization>
-    <name>Finanz Informatik GmbH &amp; Co. KG</name>
-    <url>https://www.f-i.de/</url>
-  </organization>
-
-  <distributionManagement>
-    <repository>
-      <id>artifactory</id>
-      <name>artifactory.was.intern-releases</name>
-      <url>https://artifactory.was.intern/artifactory/libs-release-local</url>
-    </repository>
-    <snapshotRepository>
-      <id>artifactory</id>
-      <name>artifactory.was.intern-snapshots</name>
-      <url>https://artifactory.was.intern/artifactory/libs-snapshot-local</url>
-    </snapshotRepository>
-  </distributionManagement>
-
-  <repositories>
-    <repository>
-      <id>artifactory-local-libs</id>
-      <url>https://artifactory.was.intern/artifactory/libs-release/</url>
-      <releases>
-        <enabled>true</enabled>
-        <checksumPolicy>fail</checksumPolicy>
-        <updatePolicy>daily</updatePolicy>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-    <repository>
-      <id>artifactory-central-mirror</id>
-      <url>https://artifactory.was.intern/artifactory/maven-central/</url>
-      <releases>
-        <enabled>true</enabled>
-        <checksumPolicy>fail</checksumPolicy>
-        <updatePolicy>daily</updatePolicy>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-    <!-- disable default central -->
-    <repository>
-      <id>central</id>
-      <url>https://repo1.maven.org/maven2/</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-    </repository>
-  </repositories>
 
   <properties>
     <!-- JDK required for compilation. Does not denote bytecode version. -->
     <jdk.version>11</jdk.version>
     <!-- bytecode target -->
     <java.version>8</java.version>
-    <!-- http://maven.apache.org/general.html#encoding-warning -->
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <!-- http://stackoverflow.com/a/3018152/66981 -->
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
     <maven.compiler.release>${java.version}</maven.compiler.release>
 
-    <!-- reproducible build -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <project.build.outputTimestamp>10</project.build.outputTimestamp>
   </properties>
 
@@ -114,22 +45,10 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>de.fi.was.datasourcevalidator</groupId>
-        <artifactId>dataSourceValidatorBundle</artifactId>
-        <version>${project.version}</version>
+        <groupId>io.github.bmarwell.liberty.cowsay</groupId>
+        <artifactId>cowsay-bundle</artifactId>
         <type>bundle</type>
-      </dependency>
-      <dependency>
-        <groupId>de.fi.was.datasourcevalidator</groupId>
-        <artifactId>dataSourceValidatorFeature</artifactId>
         <version>${project.version}</version>
-        <type>esa</type>
-      </dependency>
-      <dependency>
-        <groupId>de.fi.was.datasourcevalidator.it</groupId>
-        <artifactId>datasourcevalidator.it.testapp</artifactId>
-        <version>${project.version}</version>
-        <type>war</type>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -236,8 +155,8 @@
     <profile>
       <id>run-its</id>
       <modules>
-        <module>DataSourceValidatorFeatureBom</module>
-        <module>IntegrationTests</module>
+        <module>bom</module>
+        <module>integration-tests</module>
       </modules>
     </profile>
   </profiles>
