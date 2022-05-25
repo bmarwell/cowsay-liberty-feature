@@ -1,0 +1,17 @@
+= WLP Feature 'DataSourceValidator'
+:icons: font
+:toc: macro
+
+Cowsay for your Liberty!
+
+toc::[]
+
+== Building
+
+You will need Java 11 to build this plugin, but Java 11 is enough as a runtime.
+
+.Compiling the plugin
+[source,shell]
+----
+./mvnw verify -Pdocs,run-its
+----
