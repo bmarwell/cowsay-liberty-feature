@@ -27,14 +27,7 @@ public class Activator implements BundleActivator, ManagedService {
   public void start(BundleContext context) throws Exception {
     configRef = context.registerService(ManagedService.class, this, this.getConfigDefaults());
 
-    CowExecutor cowExecutor = new CowExecutor();
-    cowExecutor.setCowfile((String) configRef.getReference().getProperties().get("startcowfile"));
-    cowExecutor.setMessage((String) configRef.getReference().getProperties().get("startmessage"));
-    String cowsay = cowExecutor.execute();
-
-    for (String cowsayline : cowsay.split("\n")) {
-      System.out.println(cowsayline);
-    }
+    emitStartMessage();
   }
 
   @Override
@@ -56,6 +49,21 @@ public class Activator implements BundleActivator, ManagedService {
     Object startmessage = properties.get("startmessage");
     if (startmessage instanceof String) {
       this.startmessage = (String) startmessage;
+    }
+
+    emitStartMessage();
+  }
+
+  private void emitStartMessage()  {
+    if (this.startmessage != null) {
+      CowExecutor cowExecutor = new CowExecutor();
+      cowExecutor.setCowfile(this.startcowfile);
+      cowExecutor.setMessage(this.startmessage);
+      String cowsay = cowExecutor.execute();
+
+      for (String cowsayline : cowsay.split("\n")) {
+        LOGGER.log(Level.SEVERE, cowsayline);
+      }
     }
   }
 

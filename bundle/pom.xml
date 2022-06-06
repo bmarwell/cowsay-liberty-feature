@@ -65,7 +65,6 @@
               https://felix.apache.org/documentation/subprojects/apache-felix-maven-bundle-plugin-bnd.html
             -->
             <Bundle-RequiredExecutionEnvironment>JavaSE-1.8</Bundle-RequiredExecutionEnvironment>
-            <Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
           </instructions>
         </configuration>
       </plugin>
