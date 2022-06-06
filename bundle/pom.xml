@@ -55,6 +55,7 @@
               org.osgi.service.cm
             </Import-Package>
             <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
+            <Embed-Transitive>true</Embed-Transitive>
             <Export-Package>io.github.bmarwell.liberty.cowsay</Export-Package>
             <Private-Package>io.github.bmarwell.liberty.cowsay.*</Private-Package>
             <Bundle-Activator>io.github.bmarwell.liberty.cowsay.Activator</Bundle-Activator>
