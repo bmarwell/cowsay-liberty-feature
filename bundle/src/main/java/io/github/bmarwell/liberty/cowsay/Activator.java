@@ -69,7 +69,7 @@ public class Activator implements BundleActivator, ManagedService {
 
   protected Dictionary<String, ?> getConfigDefaults() {
     Hashtable<String, Object> configDefaults = new Hashtable<>();
-
+    configDefaults.put(org.osgi.framework.Constants.SERVICE_PID, "cowsay");
     configDefaults.put("startcowfile", "cow");
 
     return configDefaults;
