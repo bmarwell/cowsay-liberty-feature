@@ -1,4 +1,4 @@
-= WLP Feature 'DataSourceValidator'
+= WLP Feature 'cowsay'
 :icons: font
 :toc: macro
 
