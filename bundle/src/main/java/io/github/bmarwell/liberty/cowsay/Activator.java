@@ -17,6 +17,8 @@ public class Activator implements BundleActivator, ManagedService {
 
   private static final Logger LOGGER = Logger.getLogger(Activator.class.getName());
 
+  private static final String LOGGING_FORMAT = "COWSY%4d%1s:";
+
   private ServiceRegistration<ManagedService> configRef;
 
   private final Lock lock = new ReentrantLock();
@@ -64,7 +66,7 @@ public class Activator implements BundleActivator, ManagedService {
       try {
         lock.lock();
         for (String cowsayline : cowsay.split("\n")) {
-          LOGGER.log(Level.SEVERE, cowsayline);
+          LOGGER.log(Level.SEVERE, () -> String.format(LOGGING_FORMAT, 1, "I").replaceAll(" ", "0") + " " + cowsayline);
         }
       } finally {
           lock.unlock();
