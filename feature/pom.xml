@@ -7,7 +7,7 @@
   <parent>
     <groupId>io.github.bmarwell.liberty.cowsay</groupId>
     <artifactId>cowsay-root</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>cowsay-feature</artifactId>
@@ -23,27 +23,36 @@
   </dependencies>
 
   <build>
-    <finalName>cowsay-${project.version}</finalName>
+    <finalName>cowsay-${project.version.libertyfeature}</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.aries</groupId>
         <artifactId>esa-maven-plugin</artifactId>
         <extensions>true</extensions>
-        <configuration>
-          <generateManifest>true</generateManifest>
-          <startOrder>dependencies</startOrder>
-          <instructions>
-            <Subsystem-Type>osgi.subsystem.feature</Subsystem-Type>
-            <Subsystem-Name>Cowsay ${project.version}</Subsystem-Name>
-            <Subsystem-Description>Cowsay to the log on startup</Subsystem-Description>
-            <Subsystem-Vendor>Benjamin Marwell</Subsystem-Vendor>
-            <Subsystem-SymbolicName>cowsay; visibility:=public</Subsystem-SymbolicName>
-            <Subsystem-Localization>OSGI-INF/l10n/loc</Subsystem-Localization>
-            <IBM-Feature-Version>2</IBM-Feature-Version>
-            <IBM-ShortName>cowsay-${project.version}</IBM-ShortName>
-            <IBM-AppliesTo>com.ibm.websphere.appserver;productVersion=20.0.0.0+</IBM-AppliesTo>
-          </instructions>
-        </configuration>
+        <executions>
+          <execution>
+            <id>default-esa</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>esa</goal>
+            </goals>
+            <configuration>
+              <generateManifest>true</generateManifest>
+              <startOrder>dependencies</startOrder>
+              <instructions>
+                <Subsystem-Type>osgi.subsystem.feature</Subsystem-Type>
+                <Subsystem-Name>Cowsay ${project.version.libertyfeature}</Subsystem-Name>
+                <Subsystem-Description>Cowsay to the log on startup</Subsystem-Description>
+                <Subsystem-Vendor>Benjamin Marwell</Subsystem-Vendor>
+                <Subsystem-SymbolicName>cowsay; visibility:=public</Subsystem-SymbolicName>
+                <Subsystem-Localization>OSGI-INF/l10n/loc</Subsystem-Localization>
+                <IBM-Feature-Version>2</IBM-Feature-Version>
+                <IBM-ShortName>cowsay-${project.version.libertyfeature}</IBM-ShortName>
+                <IBM-AppliesTo>com.ibm.websphere.appserver;productVersion=20.0.0.0+</IBM-AppliesTo>
+              </instructions>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

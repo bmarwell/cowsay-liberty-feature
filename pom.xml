@@ -5,7 +5,7 @@
 
   <groupId>io.github.bmarwell.liberty.cowsay</groupId>
   <artifactId>cowsay-root</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>Liberty Cowsay Feature</name>
@@ -39,6 +39,9 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <project.build.outputTimestamp>10</project.build.outputTimestamp>
+
+    <!-- will be replaced by major.minor -->
+    <!-- project.version.libertyfeature -->
   </properties>
 
 
@@ -102,6 +105,13 @@
           <version>3.0.0-M6</version>
         </plugin>
 
+        <!-- Mojohaus plugins -->
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>build-helper-maven-plugin</artifactId>
+          <version>3.3.0</version>
+        </plugin>
+
         <!-- OSGI support -->
         <plugin>
           <groupId>org.apache.felix</groupId>
@@ -117,6 +127,29 @@
         </plugin>
       </plugins>
     </pluginManagement>
+
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>set-liberty-version</id>
+            <inherited>true</inherited>
+            <goals>
+              <goal>regex-property</goal>
+            </goals>
+            <configuration>
+              <name>project.version.libertyfeature</name>
+              <value>${project.version}</value>
+              <regex>^([0-9]+)\.([0-9]+)\.([0-9]+)(-SNAPSHOT)?$</regex>
+              <replacement>$1.$2</replacement>
+              <failIfNoMatch>true</failIfNoMatch>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
 
   <profiles>
