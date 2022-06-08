@@ -1,8 +1,11 @@
 = WLP Feature 'cowsay'
 :icons: font
 :toc: macro
+:figure-caption!:
 
-Cowsay for your Liberty!
+image::./.github/img/mthmulders_cowsay_openliberty.jpg[title="Cowsay is what we need in Open Liberty!",link="https://twitter.com/mthmulders/status/1534149242138279936"]
+
+'''
 
 toc::[]
 
