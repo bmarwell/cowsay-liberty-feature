@@ -16,6 +16,13 @@
 
   <dependencies>
     <dependency>
+      <groupId>io.github.bmarwell.liberty.cowsay</groupId>
+      <artifactId>cowsay-cowfiles</artifactId>
+      <version>${project.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+
+    <dependency>
       <groupId>com.github.ricksbrown</groupId>
       <artifactId>cowsay</artifactId>
       <version>1.1.0</version>

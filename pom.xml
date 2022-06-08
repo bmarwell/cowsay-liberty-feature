@@ -11,6 +11,7 @@
   <name>Liberty Cowsay Feature</name>
 
   <modules>
+    <module>cowfiles</module>
     <module>bundle</module>
     <module>feature</module>
   </modules>
