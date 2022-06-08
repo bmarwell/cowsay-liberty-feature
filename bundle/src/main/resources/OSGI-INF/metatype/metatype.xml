@@ -3,28 +3,80 @@
   xmlns:ibm="http://www.ibm.com/xmlns/appservers/osgi/metatype/v1.0.0"
   localization="OSGI-INF/I10n/metatype">
 
-  <OCD id="cowsay-id"
+  <OCD id="io.github.bmarwell.liberty.cowsay"
     name="%cowsay.name"
     description="%cowsay.desc"
     ibm:alias="cowsay">
+    <AD
+      id="io.github.bmarwell.liberty.cowsay.startmessage"
+      name="startmessage"
+      ibm:type="pid"
+      ibm:reference="io.github.bmarwell.liberty.cowsay.stopmessage"
+      required="false"
+      type="String"
+      cardinality="6"
+    />
+    <AD
+      id="io.github.bmarwell.liberty.cowsay.startmessage"
+      name="stopmessage"
+      ibm:type="pid"
+      ibm:reference="io.github.bmarwell.liberty.cowsay.stopmessage"
+      required="false"
+      type="String"
+      cardinality="6"
+    />
+  </OCD>
 
-    <AD id="startmessage"
-      name="%startmessage.name"
-      description="%startmessage.desc"
+  <Designate pid="io.github.bmarwell.liberty.cowsay">
+    <Object ocdref="io.github.bmarwell.liberty.cowsay"/>
+  </Designate>
+
+  <OCD
+    id="io.github.bmarwell.liberty.cowsay.startmessage"
+    name="startmessage"
+    description="Define a message on start"
+    ibm:alias="startmessage"
+  >
+    <AD id="message"
+      name="%message.name"
+      description="%message.desc"
       type="String"
     />
 
-    <AD id="startcowfile"
-      name="%startcowfile.name"
-      description="%startcowfile.desc"
+    <AD id="cowfile"
+      name="%cowfile.name"
+      description="%cowfile.desc"
       type="String"
       default="cow"
     />
-
   </OCD>
 
-  <Designate pid="cowsay">
-    <Object ocdref="cowsay-id"/>
+  <Designate factoryPid="io.github.bmarwell.liberty.cowsay.startmessage">
+    <Object ocdref="io.github.bmarwell.liberty.cowsay.startmessage" />
+  </Designate>
+
+  <OCD
+    id="io.github.bmarwell.liberty.cowsay.stopmessage"
+    name="stopmessage"
+    description="Define a message on shutdown"
+    ibm:alias="stopmessage"
+  >
+    <AD id="message"
+      name="%message.name"
+      description="%message.desc"
+      type="String"
+    />
+
+    <AD id="cowfile"
+      name="%cowfile.name"
+      description="%cowfile.desc"
+      type="String"
+      default="cow"
+    />
+  </OCD>
+
+  <Designate factoryPid="io.github.bmarwell.liberty.cowsay.stopmessage">
+    <Object ocdref="io.github.bmarwell.liberty.cowsay.stopmessage" />
   </Designate>
 
 </metatype:MetaData>
