@@ -28,8 +28,11 @@ public class Activator implements BundleActivator, ManagedService {
   private final Lock lock = new ReentrantLock();
 
   private String startmessage;
-
   private String startcowfile = "cow";
+
+  private String stopmessage;
+  private String stopcowfile = "cow";
+
   private BundleContext bundleContext;
 
   @Override
@@ -40,6 +43,8 @@ public class Activator implements BundleActivator, ManagedService {
 
   @Override
   public void stop(BundleContext context) throws Exception {
+    emitStopMessage();
+
     this.configRef.unregister();
   }
 
@@ -50,7 +55,7 @@ public class Activator implements BundleActivator, ManagedService {
     }
 
     String[] startmessage = (String[]) properties.get("startmessage");
-    String stopmessage = (String) properties.get("stopmessage");
+    String[] stopmessage = (String[]) properties.get("stopmessage");
 
     // Get the configuration admin service
     ConfigurationAdmin configAdmin = null;
@@ -73,24 +78,50 @@ public class Activator implements BundleActivator, ManagedService {
       }
     }
 
+    if (stopmessage != null && stopmessage.length > 0) {
+      try {
+        Configuration config = configAdmin.getConfiguration(stopmessage[0], null);
+        this.stopmessage = (String) config.getProperties().get("message");
+        String cowfile = (String) config.getProperties().get("cowfile");
+        if (cowfile != null) {
+          this.stopcowfile = cowfile;
+        }
+      } catch (IOException ioException) {
+        LOGGER.log(Level.SEVERE, "Problem reading stopmessage data.", ioException);
+      }
+    }
+
     emitStartMessage();
   }
 
-  private void emitStartMessage()  {
+  private void emitStartMessage() {
     if (this.startmessage != null) {
       CowExecutor cowExecutor = new CowExecutor();
       cowExecutor.setCowfile(this.startcowfile);
       cowExecutor.setMessage(this.startmessage);
-      String cowsay = cowExecutor.execute();
+      logCowExecutor(cowExecutor);
+    }
+  }
 
-      try {
-        lock.lock();
-        for (String cowsayline : cowsay.split("\n")) {
-          LOGGER.log(Level.SEVERE, () -> String.format(LOGGING_FORMAT, 1, "I").replaceAll(" ", "0") + " " + cowsayline);
-        }
-      } finally {
-          lock.unlock();
+  private void emitStopMessage() {
+    if (this.stopmessage != null) {
+      CowExecutor cowExecutor = new CowExecutor();
+      cowExecutor.setCowfile(this.stopcowfile);
+      cowExecutor.setMessage(this.stopmessage);
+      logCowExecutor(cowExecutor);
+    }
+  }
+
+  private void logCowExecutor(CowExecutor cowExecutor) {
+    String cowsay = cowExecutor.execute();
+
+    try {
+      lock.lock();
+      for (String cowsayline : cowsay.split("\n")) {
+        LOGGER.log(Level.SEVERE, () -> String.format(LOGGING_FORMAT, 1, "I").replaceAll(" ", "0") + " " + cowsayline);
       }
+    } finally {
+      lock.unlock();
     }
   }
 
