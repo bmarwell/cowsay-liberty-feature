@@ -1,6 +1,7 @@
 package io.github.bmarwell.liberty.cowsay;
 
 import com.github.ricksbrown.cowsay.plugin.CowExecutor;
+import java.io.IOException;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.concurrent.locks.Lock;
@@ -9,7 +10,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
 import org.osgi.framework.ServiceRegistration;
+import org.osgi.service.cm.Configuration;
+import org.osgi.service.cm.ConfigurationAdmin;
 import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
 
@@ -26,12 +30,12 @@ public class Activator implements BundleActivator, ManagedService {
   private String startmessage;
 
   private String startcowfile = "cow";
+  private BundleContext bundleContext;
 
   @Override
-  public void start(BundleContext context) throws Exception {
-    configRef = context.registerService(ManagedService.class, this, this.getConfigDefaults());
-
-    emitStartMessage();
+  public void start(BundleContext bundleContext) throws Exception {
+    this.bundleContext = bundleContext;
+    configRef = bundleContext.registerService(ManagedService.class, this, this.getConfigDefaults());
   }
 
   @Override
@@ -45,15 +49,31 @@ public class Activator implements BundleActivator, ManagedService {
       return;
     }
 
-    Object startcowfile = properties.get("startcowfile");
-    if (startcowfile instanceof String) {
-      this.startcowfile = (String) startcowfile;
+    String[] startmessage = (String[]) properties.get("startmessage");
+    String stopmessage = (String) properties.get("stopmessage");
+
+    // Get the configuration admin service
+    ConfigurationAdmin configAdmin = null;
+    ServiceReference<?> configurationAdminReference = this.bundleContext.getServiceReference(ConfigurationAdmin.class.getName());
+
+    if (configurationAdminReference != null) {
+      configAdmin = (ConfigurationAdmin) this.bundleContext.getService(configurationAdminReference);
     }
 
-    Object startmessage = properties.get("startmessage");
-    if (startmessage instanceof String) {
-      this.startmessage = (String) startmessage;
+    if (startmessage != null && startmessage.length > 0) {
+      try {
+        Configuration config = configAdmin.getConfiguration(startmessage[0], null);
+        this.startmessage = (String) config.getProperties().get("message");
+        String cowfile = (String) config.getProperties().get("cowfile");
+        if (cowfile != null) {
+          this.startcowfile = cowfile;
+        }
+      } catch (IOException ioException) {
+        LOGGER.log(Level.SEVERE, "Problem reading startmessage data.", ioException);
+      }
     }
+
+    emitStartMessage();
   }
 
   private void emitStartMessage()  {
@@ -77,7 +97,6 @@ public class Activator implements BundleActivator, ManagedService {
   protected Dictionary<String, ?> getConfigDefaults() {
     Hashtable<String, Object> configDefaults = new Hashtable<>();
     configDefaults.put(org.osgi.framework.Constants.SERVICE_PID, "cowsay");
-    configDefaults.put("startcowfile", "cow");
 
     return configDefaults;
   }
