@@ -1,14 +1,17 @@
 = WLP Feature 'cowsay'
 :icons: font
 :toc: macro
+:figure-caption!:
 
-Cowsay for your Liberty!
+image::./.github/img/mthmulders_cowsay_openliberty.jpg[title="Cowsay is what we need in Open Liberty!",link="https://twitter.com/mthmulders/status/1534149242138279936"]
+
+'''
 
 toc::[]
 
 == Building
 
-You will need Java 11 to build this plugin, but Java 11 is enough as a runtime.
+You will need Java 11 to build this plugin, but Java 8 is enough as a runtime.
 
 .Compiling the plugin
 [source,shell]
