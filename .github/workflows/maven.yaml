@@ -20,4 +20,5 @@ jobs:
           distribution: temurin
 
       - name: Build application with Maven
-        run: mvn --show-version --errors --batch-mode --no-transfer-progress verify -Pdocs
+        shell: bash
+        run: ./mvnw --show-version --errors --batch-mode --no-transfer-progress verify -Pdocs
