@@ -11,7 +11,7 @@ toc::[]
 
 == Building
 
-You will need Java 11 to build this plugin, but Java 11 is enough as a runtime.
+You will need Java 11 to build this plugin, but Java 8 is enough as a runtime.
 
 .Compiling the plugin
 [source,shell]
