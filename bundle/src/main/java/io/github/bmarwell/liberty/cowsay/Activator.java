@@ -37,6 +37,7 @@ public class Activator implements BundleActivator, ManagedService {
 
   @Override
   public void start(BundleContext bundleContext) throws Exception {
+    LOGGER.log(Level.SEVERE, "Starting cowsay.");
     this.bundleContext = bundleContext;
     configRef = bundleContext.registerService(ManagedService.class, this, this.getConfigDefaults());
   }

@@ -14,6 +14,7 @@
     <module>cowfiles</module>
     <module>bundle</module>
     <module>feature</module>
+    <module>integration-tests</module>
   </modules>
 
   <scm>
@@ -52,6 +53,12 @@
         <groupId>io.github.bmarwell.liberty.cowsay</groupId>
         <artifactId>cowsay-bundle</artifactId>
         <type>bundle</type>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.github.bmarwell.liberty.cowsay</groupId>
+        <artifactId>cowsay-feature</artifactId>
+        <type>esa</type>
         <version>${project.version}</version>
       </dependency>
     </dependencies>
@@ -112,6 +119,11 @@
           <artifactId>build-helper-maven-plugin</artifactId>
           <version>3.3.0</version>
         </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>3.0.0</version>
+        </plugin>
 
         <!-- OSGI support -->
         <plugin>
@@ -125,6 +137,13 @@
           <artifactId>esa-maven-plugin</artifactId>
           <version>1.0.2</version>
           <extensions>true</extensions>
+        </plugin>
+
+        <!-- 3rd party -->
+        <plugin>
+          <groupId>io.openliberty.tools</groupId>
+          <artifactId>liberty-maven-plugin</artifactId>
+          <version>3.6</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -147,6 +166,13 @@
               <replacement>$1.$2</replacement>
               <failIfNoMatch>true</failIfNoMatch>
             </configuration>
+          </execution>
+          <execution>
+            <id>set-osgi-version</id>
+            <inherited>true</inherited>
+            <goals>
+              <goal>parse-version</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>
