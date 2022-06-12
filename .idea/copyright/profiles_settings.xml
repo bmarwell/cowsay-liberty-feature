@@ -1,0 +1,8 @@
+<component name="CopyrightManager">
+  <settings default="Apache License v2.0">
+    <module2copyright>
+      <element module="maven-wrapper-files" copyright="Maven Apache License" />
+      <element module="All" copyright="Apache License v2.0" />
+    </module2copyright>
+  </settings>
+</component>
