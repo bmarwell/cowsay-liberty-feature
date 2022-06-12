@@ -16,6 +16,7 @@
   <name>Cowsay :: ITs</name>
 
   <modules>
+    <module>tests</module>
     <module>ol-latest</module>
     <!--module>wlp-latest</module-->
   </modules>

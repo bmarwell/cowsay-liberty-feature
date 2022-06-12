@@ -17,6 +17,7 @@
   <properties>
     <liberty.var.it.http.port>8080</liberty.var.it.http.port>
     <liberty.var.it.feature>usr:cowsay-1.0</liberty.var.it.feature>
+    <wlp.serverName>cowsay-ol</wlp.serverName>
   </properties>
 
   <dependencies>
@@ -25,6 +26,13 @@
       <artifactId>cowsay-bundle</artifactId>
       <type>bundle</type>
       <scope>runtime</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>io.github.bmarwell.liberty.cowsay.it</groupId>
+      <artifactId>cowsay-integration-tests.tests</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+      <scope>test</scope>
     </dependency>
 
   </dependencies>
@@ -78,14 +86,34 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>integration-test</id>
+            <phase>integration-test</phase>
+            <goals>
+              <goal>integration-test</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>verify</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <systemPropertyVariables>
+            <wlp.logfile>${project.build.directory}/liberty/wlp/usr/servers/${wlp.serverName}/logs/messages.log</wlp.logfile>
+          </systemPropertyVariables>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>io.openliberty.tools</groupId>
         <artifactId>liberty-maven-plugin</artifactId>
         <configuration>
-          <serverName>cowsay-ol</serverName>
+          <serverName>${wlp.serverName}</serverName>
           <runtimeArtifact>
             <groupId>io.openliberty</groupId>
             <artifactId>openliberty-webProfile8</artifactId>
