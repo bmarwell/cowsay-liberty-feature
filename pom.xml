@@ -54,8 +54,51 @@
         <type>bundle</type>
         <version>${project.version}</version>
       </dependency>
+      <dependency>
+        <groupId>io.github.bmarwell.liberty.cowsay</groupId>
+        <artifactId>cowsay-feature</artifactId>
+        <type>esa</type>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>5.8.2</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
     </dependencies>
   </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-launcher</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>3.22.0</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 
   <build>
     <pluginManagement>
@@ -112,6 +155,11 @@
           <artifactId>build-helper-maven-plugin</artifactId>
           <version>3.3.0</version>
         </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>3.0.0</version>
+        </plugin>
 
         <!-- OSGI support -->
         <plugin>
@@ -125,6 +173,13 @@
           <artifactId>esa-maven-plugin</artifactId>
           <version>1.0.2</version>
           <extensions>true</extensions>
+        </plugin>
+
+        <!-- 3rd party -->
+        <plugin>
+          <groupId>io.openliberty.tools</groupId>
+          <artifactId>liberty-maven-plugin</artifactId>
+          <version>3.6</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -147,6 +202,13 @@
               <replacement>$1.$2</replacement>
               <failIfNoMatch>true</failIfNoMatch>
             </configuration>
+          </execution>
+          <execution>
+            <id>set-osgi-version</id>
+            <inherited>true</inherited>
+            <goals>
+              <goal>parse-version</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>
@@ -189,7 +251,6 @@
     <profile>
       <id>run-its</id>
       <modules>
-        <module>bom</module>
         <module>integration-tests</module>
       </modules>
     </profile>

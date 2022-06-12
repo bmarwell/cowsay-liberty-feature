@@ -21,4 +21,4 @@ jobs:
 
       - name: Build application with Maven
         shell: bash
-        run: ./mvnw --show-version --errors --batch-mode --no-transfer-progress verify -Pdocs
+        run: ./mvnw --show-version --errors --batch-mode --no-transfer-progress verify -Prun-its,docs -DtrimStackTrace=false
