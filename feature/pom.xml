@@ -60,6 +60,7 @@
                 <Subsystem-Name>Cowsay ${project.version.libertyfeature}</Subsystem-Name>
                 <Subsystem-Description>Cowsay to the log on startup</Subsystem-Description>
                 <Subsystem-Vendor>Benjamin Marwell</Subsystem-Vendor>
+                <Subsystem-License>Apache License v2.0</Subsystem-License>
                 <Subsystem-SymbolicName>cowsay; visibility:=public</Subsystem-SymbolicName>
                 <Subsystem-Localization>OSGI-INF/l10n/loc</Subsystem-Localization>
                 <IBM-Feature-Version>2</IBM-Feature-Version>
