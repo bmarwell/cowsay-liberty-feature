@@ -7,7 +7,48 @@ image::./.github/img/mthmulders_cowsay_openliberty.jpg[title="Cowsay is what we 
 
 '''
 
+image:https://github.com/bmarwell/cowsay-liberty-feature/actions/workflows/maven.yaml/badge.svg[title="Maven CI",link="https://github.com/bmarwell/cowsay-liberty-feature/actions/workflows/maven.yaml"]
+image:https://img.shields.io/badge/License-Apache%202.0-blue.svg[Apache License v2.0,124,20,link=https://opensource.org/licenses/Apache-2.0]
+
 toc::[]
+
+== Usage
+
+See this blog article for an in-depth explanation why this plugin exists: link:https://blog.bmarwell.de/2022/06/10/developing-an-ibm-openliberty-feature.html[Guide: How to develop an IBM OpenLiberty Feature]
+
+.server.xml
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<server description="cowsay">
+  <featureManager>
+    <feature>usr:cowsay-1.0</feature>
+  </featureManager>
+
+  <cowsay message="Hello, Liberty" />
+</server>
+----
+
+.Expected Output
+[source,log]
+----
+Launching defaultServer (WebSphere Application Server 22.0.0.5/wlp-1.0.64.cl220520220425-0301) on OpenJDK 64-Bit Server VM, version 1.8.0_332-b09 (en_US)
+[AUDIT   ] CWWKE0001I: The server defaultServer has been launched.
+[AUDIT   ] CWWKE0100I: This product is licensed for development, and limited production use. The full license terms can be viewed here: https://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/wasdev/license/base_ilan/ilan/22.0.0.5/lafiles/en.html
+[INFO    ] CWWKE0002I: The kernel started after 0.544 seconds
+[INFO    ] CWWKF0007I: Feature update started.
+[ERROR   ] COWSA0001I:  ________________
+[ERROR   ] COWSA0001I: < Hello, Liberty >
+[ERROR   ] COWSA0001I:  ----------------
+[ERROR   ] COWSA0001I:         \   ^__^
+[ERROR   ] COWSA0001I:          \  (oo)\_______
+[ERROR   ] COWSA0001I:             (__)\       )\/\
+[ERROR   ] COWSA0001I:                 ||----w |
+[ERROR   ] COWSA0001I:                 ||     ||
+[AUDIT   ] CWWKF0012I: The server installed the following features: [usr:cowsay-1.0].
+[INFO    ] CWWKF0008I: Feature update completed in 0.075 seconds.
+[AUDIT   ] CWWKF0011I: The defaultServer server is ready to run a smarter planet. The defaultServer server started in 0.620 seconds.
+----
 
 == Building
 
