@@ -25,7 +25,9 @@ See this blog article for an in-depth explanation why this plugin exists: link:h
     <feature>usr:cowsay-1.0</feature>
   </featureManager>
 
-  <cowsay message="Hello, Liberty" />
+  <cowsay>
+    <startmessage message="Hello, Liberty!" cowfile="cow"/>
+  </cowsay>
 </server>
 ----
 
